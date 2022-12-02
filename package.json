@@ -1,0 +1,32 @@
+{
+  "name": "sol-pay",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "ngrok": "ngrok http --region ap 3000",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@solana/pay": "^0.2.4",
+    "@solana/qr-code-styling": "^1.6.0-beta.0",
+    "@solana/spl-token": "^0.3.6",
+    "@solana/wallet-adapter-base": "^0.9.19",
+    "@solana/wallet-adapter-react": "^0.15.25",
+    "@solana/wallet-adapter-react-ui": "^0.9.23",
+    "@solana/wallet-adapter-wallets": "^0.19.7",
+    "@solana/web3.js": "^1.68.0",
+    "@types/node": "18.11.9",
+    "@types/react": "18.0.25",
+    "@types/react-dom": "18.0.9",
+    "eslint": "8.28.0",
+    "eslint-config-next": "13.0.5",
+    "next": "13.0.5",
+    "ngrok": "^4.3.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "4.9.3"
+  }
+}
