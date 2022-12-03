@@ -59,7 +59,6 @@ export default async function handler(
 
       // Serialization
       const serializedTransaction = transaction.serialize({
-        // verifySignatures: false,
         requireAllSignatures: false,
       });
 
