@@ -55,7 +55,7 @@ export default async function handler(
         await connection.getLatestBlockhash()
       ).blockhash;
       transaction.feePayer = passKp.publicKey;
-      transaction.partialSign(passKp);
+      transaction.sign(passKp);
 
       // Serialization
       const serializedTransaction = transaction.serialize({
