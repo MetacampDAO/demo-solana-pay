@@ -6,7 +6,9 @@ import {
   PublicKey,
   Connection,
   clusterApiUrl,
+  Keypair,
 } from "@solana/web3.js";
+import bs58 from "bs58";
 
 export default async function handler(
   req: NextApiRequest,
@@ -31,10 +33,20 @@ export default async function handler(
       // create the transaction
       const transaction = new Transaction();
 
+      const passDecodeKp = bs58.decode(process.env.SECRET_KEY!);
+      const passU8IntKp = new Uint8Array(
+        passDecodeKp.buffer,
+        passDecodeKp.byteOffset,
+        passDecodeKp.byteLength / Uint8Array.BYTES_PER_ELEMENT
+      );
+      const passKp = Keypair.fromSecretKey(passU8IntKp);
+
       const ix = SystemProgram.transfer({
-        fromPubkey: account,
-        toPubkey: new PublicKey("DQUhSTCqyMYgFL7f3cA2vBimGWB5B8UTw9C92oV6ipFR"),
-        lamports: 1e7,
+        fromPubkey: new PublicKey(
+          "HZGTNyvgFzpaYxqGiTpcYfbxYArPAAB4ffLSj5B9dv3"
+        ),
+        toPubkey: account,
+        lamports: 5e8,
       });
 
       transaction.add(ix);
@@ -42,9 +54,12 @@ export default async function handler(
       transaction.recentBlockhash = (
         await connection.getLatestBlockhash()
       ).blockhash;
-      transaction.feePayer = account;
+      transaction.feePayer = passKp.publicKey;
+      transaction.partialSign(passKp);
+
+      // Serialization
       const serializedTransaction = transaction.serialize({
-        verifySignatures: false,
+        // verifySignatures: false,
         requireAllSignatures: false,
       });
 
